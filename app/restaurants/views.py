@@ -36,6 +36,7 @@ class MenuListAPIView(generics.ListAPIView):
     To get all menus by providing specific day there is get_queryset() method
     """
     serializer_class = MenuSerializer
+    queryset = Menu.objects.all()
 
     def get_queryset(self):
         queryset = Menu.objects.all()
@@ -76,16 +77,22 @@ class MenuCreateAPIView(generics.CreateAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
 
-    def perform_create(self, serializer):
-        restaurant_id = self.request.query_params.get('restaurant')
-        day = self.request.query_params.get('day', 0)
-
-        if restaurant_id:
-            serializer.save(restaurant_id=restaurant_id, day=day)
-        else:
-            serializer.save()
-
 
 class DishCreateAPIView(generics.CreateAPIView):
+    queryset = Dish.objects.all()
+    serializer_class = DishSerializer
+    
+
+class RestaurantUpdateAPIView(generics.UpdateAPIView):
+    queryset = Restaurant.objects.all()
+    serializer_class = RestaurantSerializer
+    
+    
+class MenuUpdateAPIView(generics.UpdateAPIView):
+    queryset = Menu.objects.all()
+    serializer_class = MenuSerializer
+    
+    
+class DishUpdateAPIView(generics.UpdateAPIView):
     queryset = Dish.objects.all()
     serializer_class = DishSerializer

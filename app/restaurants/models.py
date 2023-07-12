@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ValidationError
 
 
 class Restaurant(models.Model):
@@ -49,8 +50,9 @@ class Menu(models.Model):
     )
 
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=True)
-    day = models.PositiveSmallIntegerField(choices=WEEKDAY_CHOICES, default=0, unique=True)
+    day = models.PositiveSmallIntegerField(choices=WEEKDAY_CHOICES, default=0)
     dishes = models.ManyToManyField(Dish, blank=True)
 
     def __str__(self):
         return f"Menu of {self.restaurant.name} | {dict(Menu.WEEKDAY_CHOICES)[self.day]}"
+    

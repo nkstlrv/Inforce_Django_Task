@@ -20,8 +20,10 @@ class MenuSerializer(serializers.ModelSerializer):
     class Meta:
         model = Menu
         fields = (
+            'id',
             'restaurant',
             'day',
+            'dishes',
         )
 
 
@@ -33,5 +35,4 @@ class DishSerializer(serializers.ModelSerializer):
         model = Dish
         fields = (
             'name',
-            'menu',
         )
