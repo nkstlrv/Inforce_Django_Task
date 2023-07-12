@@ -47,6 +47,7 @@ class MenuListAPIView(AuthBaseClass, generics.ListAPIView):
         day = self.request.query_params.get('day')
         restaurant_id = self.request.query_params.get('restaurant_id')
         _id = self.request.query_params.get('id')
+    
 
         if day:
             queryset = queryset.filter(day=day)
@@ -68,7 +69,7 @@ class DishListAPIView(AuthBaseClass, generics.ListAPIView):
     serializer_class = DishSerializer
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
-
+    
 
 class RestaurantCreateAPIView(AuthBaseClass, generics.CreateAPIView):
     queryset = Restaurant.objects.all()
