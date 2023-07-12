@@ -8,7 +8,7 @@ class RestaurantListAPIView(generics.ListAPIView):
     List all Restaurants in DB
     """
     serializer_class = RestaurantSerializer
-    
+
     def get_queryset(self):
         queryset = Restaurant.objects.all()
         restaurant_id = self.request.query_params.get('id')
@@ -16,7 +16,7 @@ class RestaurantListAPIView(generics.ListAPIView):
 
         if restaurant_id:
             queryset = queryset.filter(id=restaurant_id)
-            
+
         if delivery:
             queryset = queryset.filter(delivery=delivery)
 
@@ -61,13 +61,17 @@ class DishListAPIView(generics.ListAPIView):
 class RestaurantCreateAPIView(generics.CreateAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
-    
+
     def perform_create(self, serializer):
-        serializer.save(address=self.request.data.get('address', None), 
+        serializer.save(address=self.request.data.get('address', None),
                         phone_number=self.request.data.get('phone_number', None))
-        
+
 
 class MenuCreateAPIView(generics.CreateAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
 
+
+class DishCreateAPIView(generics.CreateAPIView):
+    queryset = Dish.objects.all()
+    serializer_class = DishSerializer

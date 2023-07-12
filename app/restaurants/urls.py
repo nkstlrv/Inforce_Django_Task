@@ -17,5 +17,8 @@ urlpatterns = [
     
     #POST endpoint to create new menu
     path('menu/create/', views.MenuCreateAPIView.as_view(), name='menu_create'),
+    
+    #POST endpoint to create new dish
+    path('dish/create/', views.DishCreateAPIView.as_view(), name='dish_create'),
 
 ]
