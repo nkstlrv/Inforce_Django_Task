@@ -53,36 +53,20 @@ class Menu(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=True)
     day = models.PositiveSmallIntegerField(choices=WEEKDAY_CHOICES, default=0)
     dishes = models.ManyToManyField(Dish, blank=True)
-    votes = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return f"Menu of {self.restaurant.name} | {self.day}"
     
 
 class Vote(models.Model):
-    employee = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
+    employee = models.OneToOneField(User, on_delete=models.CASCADE)
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.employee.username} | {self.menu}"
 
-    def save(self, *args, **kwargs):
-        if self.menu.day != timezone.now().weekday() + 1:
-            raise ValidationError("Voting available only for today")
 
-        previous_vote = Vote.objects.filter(employee=self.employee)
-        if previous_vote:
-            previous_vote.delete()
-
-        self.menu.votes += 1
-        self.menu.save()
-
-        super().save(*args, **kwargs)
-
-    def delete(self, *args, **kwargs):
-        self.menu.votes -= 1
-        self.menu.save()
-        super().delete(*args, **kwargs)
+  
 
     
     

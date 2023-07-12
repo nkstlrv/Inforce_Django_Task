@@ -18,7 +18,7 @@ class RestaurantAdmin(admin.ModelAdmin):
 
 @admin.register(Menu)
 class MenuAdmin(admin.ModelAdmin):
-    list_display = ['restaurant', 'get_day', 'get_dishes', 'votes']
+    list_display = ['restaurant', 'get_day', 'get_dishes']
 
     def get_day(self, obj):
         return dict(Menu.WEEKDAY_CHOICES)[obj.day]
