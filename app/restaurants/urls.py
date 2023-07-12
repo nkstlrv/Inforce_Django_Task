@@ -8,5 +8,8 @@ urlpatterns = [
 
     # endpoint for list of all menus
     path('list/menus/', views.MenuListAPIView.as_view(), name='menus_list'),
+    
+    # endpoint for list of all dishes
+    path('list/dishes/', views.DishListAPIView.as_view(), name='dishes_list'),
 
 ]

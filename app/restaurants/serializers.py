@@ -26,3 +26,15 @@ class MenuSerializer(serializers.ModelSerializer):
             'restaurant',
             'day',
         )
+        
+        
+class DishSerializer(serializers.ModelSerializer):
+    """
+    Serializer for Dish model
+    """
+    class Meta:
+        model = Dish
+        fields = (
+            'name',
+            'menu',
+        )
