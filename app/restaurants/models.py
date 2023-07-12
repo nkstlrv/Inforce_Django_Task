@@ -4,6 +4,7 @@ from django.forms import ValidationError
 from django.contrib.auth.models import User
 from menu.models import Menu
 
+
 class Restaurant(models.Model):
     """
     Model of the restaurant

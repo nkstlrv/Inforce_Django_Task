@@ -1,6 +1,4 @@
 from django.db import models
-from restaurants.models import Restaurant
-from dish.model import Dish
 
 
 class Menu(models.Model):
@@ -20,9 +18,8 @@ class Menu(models.Model):
         (6, 'Sunday'),
     )
 
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=True)
+    restaurant = models.ForeignKey('restaurants.Restaurant', on_delete=models.CASCADE, null=True)
     day = models.PositiveSmallIntegerField(choices=WEEKDAY_CHOICES, default=0)
-    dishes = models.ManyToManyField(Dish, blank=True)
 
     def __str__(self):
         return f"Menu of {self.restaurant.name} | {self.day}"
