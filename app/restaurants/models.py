@@ -20,6 +20,16 @@ class Restaurant(models.Model):
         return self.name
 
 
+class Dish(models.Model):
+    """
+    Model for specific dish to be related to menu model
+    """
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
 class Menu(models.Model):
     """
     Model of the menu
@@ -38,25 +48,9 @@ class Menu(models.Model):
         (7, 'Sunday'),
     )
 
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=True, default=None)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=True)
     day = models.PositiveSmallIntegerField(choices=WEEKDAY_CHOICES, default=0, unique=True)
-
-    def get_day_display(self):
-        """
-        Method returns word-representation of weekdays instead of choices numbers
-        """
-        return dict(Menu.WEEKDAY_CHOICES)[self.day]
+    dishes = models.ManyToManyField(Dish, blank=True)
 
     def __str__(self):
-        return f"Menu of {self.restaurant.name}"
-
-
-class Dish(models.Model):
-    """
-    Model for specific dish to be related to menu model
-    """
-    name = models.CharField(max_length=255, unique=True)
-    menus = models.ManyToManyField(Menu, related_name='dishes')
-
-    def __str__(self):
-        return self.name
+        return f"Menu of {self.restaurant.name} | {dict(Menu.WEEKDAY_CHOICES)[self.day]}"

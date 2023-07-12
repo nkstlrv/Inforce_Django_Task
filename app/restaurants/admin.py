@@ -35,10 +35,11 @@ class MenuAdmin(admin.ModelAdmin):
 
 @admin.register(Dish)
 class DishAdmin(admin.ModelAdmin):
-    list_display = [
-        'name',
-        'get_menu',
-    ]
+    list_display = ['name', 'menu']
 
-    def get_menu(self, obj):
-        return obj.menu
+
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == 'menu':
+            kwargs['required'] = False 
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
