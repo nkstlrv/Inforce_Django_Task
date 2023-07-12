@@ -1,48 +1,62 @@
 from django.db import models
-from .choices import RestaurantCostChoices, DishDayChoices
-from django.core.validators import MinValueValidator
-
-
-class Dish(models.Model):
-    """
-    Model to store available dishes and their day of availability
-    - day (week day when this dish is available)
-    - name (name of the dish)
-    - price (price of the dish)
-    """
-    name = models.CharField(max_length=150)
-    
-    day = models.PositiveIntegerField(choices=DishDayChoices.choices, 
-                                      default=DishDayChoices.EVERYDAY, 
-                                      max_length=1)
-    
-    price = models.DecimalField(max_digits=6,
-                                decimal_places=2,
-                                null=True,
-                                default=None,
-                                validators=[MinValueValidator(0)])
-
-    def __str__(self):
-        return f"{self.name} | {self.day}"
 
 
 class Restaurant(models.Model):
     """
-    Model to store main info about restaurants:
-    - their name, address, cuisine, cost(low, mid, high)
-    - phone number 
-    - delivery option
-    - menu (foreign key to Menu model)
+    Model of the restaurant
+    Fields:
+    - name of the restaurant
+    - address of the restaurant
+    - is there a delivery option
+    -phone number for booking or delivery
+
     """
     name = models.CharField(max_length=255)
-    address = models.CharField(max_length=500)
-    phone_number = models.CharField(max_length=15)
-    cuisine = models.CharField(max_length=100, null=True, default=None)
-    cost = models.PositiveSmallIntegerField(choices=RestaurantCostChoices.choices, 
-                            default=RestaurantCostChoices.MID,
-                            max_length=1)
+    address = models.CharField(max_length=255, null=True, default=None)
     delivery = models.BooleanField(default=False)
-    dish = models.ManyToManyField(Dish)
+    phone_number = models.CharField(max_length=20, null=True, default=None)
+    
+    def __str__(self):
+        return self.name
+
+
+class Menu(models.Model):
+    """
+    Model of the menu
+    Fields:
+    - restaurant ID where this menu can be found
+    - day when this menu is available
+    """
+    WEEKDAY_CHOICES = (
+        (0, 'Everyday'),
+        (1, 'Monday'),
+        (2, 'Tuesday'),
+        (3, 'Wednesday'),
+        (4, 'Thursday'),
+        (5, 'Friday'),
+        (6, 'Saturday'),
+        (7, 'Sunday'),
+    )
+
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=True, default=None)
+    day = models.PositiveSmallIntegerField(choices=WEEKDAY_CHOICES, default=0)
+    
+    def get_weekday_display(self):
+        """
+        Method returns word-representation of weekdays instead of choices numbers
+        """
+        return dict(Menu.WEEKDAY_CHOICES)[self.day]
+    
+    def __str__(self):
+        return f"Menu of {self.restaurant.name} | {self.day}"
+
+
+class Dish(models.Model):
+    """
+    Model for specific dish to be related to menu model
+    """
+    name = models.CharField(max_length=255)
+    menu = models.ForeignKey(Menu, on_delete=models.CASCADE, null=True, default=None)
 
     def __str__(self):
-        return f"{self.name} | {self.address}"
+        return self.name
