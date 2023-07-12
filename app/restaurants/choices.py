@@ -19,6 +19,6 @@ class DishDayChoices(models.IntegerChoices):
     TUESDAY = 2, ('Tuesday')
     WEDNESDAY = 3, ('Wednesday')
     THURSDAY = 4, ('Thursday')
-    Friday = 5, ('Friday')
+    FRIDAY = 5, ('Friday')
     SATURDAY = 6, ('Saturday')
     SUNDAY = 7, ('Sunday')

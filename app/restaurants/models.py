@@ -11,7 +11,11 @@ class Dish(models.Model):
     - price (price of the dish)
     """
     name = models.CharField(max_length=150)
-    day = models.CharField(choices=DishDayChoices.choices, default=DishDayChoices.EVERYDAY, max_length=1)
+    
+    day = models.PositiveIntegerField(choices=DishDayChoices.choices, 
+                                      default=DishDayChoices.EVERYDAY, 
+                                      max_length=1)
+    
     price = models.DecimalField(max_digits=6,
                                 decimal_places=2,
                                 null=True,
@@ -34,7 +38,7 @@ class Restaurant(models.Model):
     address = models.CharField(max_length=500)
     phone_number = models.CharField(max_length=15)
     cuisine = models.CharField(max_length=100, null=True, default=None)
-    cost = models.CharField(choices=RestaurantCostChoices.choices, 
+    cost = models.PositiveSmallIntegerField(choices=RestaurantCostChoices.choices, 
                             default=RestaurantCostChoices.MID,
                             max_length=1)
     delivery = models.BooleanField(default=False)
