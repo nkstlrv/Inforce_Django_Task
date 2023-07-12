@@ -11,7 +11,7 @@ class Restaurant(models.Model):
     -phone number for booking or delivery
 
     """
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     address = models.CharField(max_length=255, null=True, default=None)
     delivery = models.BooleanField(default=False)
     phone_number = models.CharField(max_length=20, null=True, default=None)
@@ -39,7 +39,7 @@ class Menu(models.Model):
     )
 
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=True, default=None)
-    day = models.PositiveSmallIntegerField(choices=WEEKDAY_CHOICES, default=0)
+    day = models.PositiveSmallIntegerField(choices=WEEKDAY_CHOICES, default=0, unique=True)
 
     def get_day_display(self):
         """
@@ -55,7 +55,7 @@ class Dish(models.Model):
     """
     Model for specific dish to be related to menu model
     """
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     menus = models.ManyToManyField(Menu, related_name='dishes')
 
     def __str__(self):
