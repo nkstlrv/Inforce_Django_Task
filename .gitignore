@@ -3,3 +3,11 @@
 # this file with enviramental variables should be ignored 
 # I added it to privat repostitory only for demonstrational purposes 
 # .env
+
+
+# ignoring debuging sqlite databases
+db.*
+*.sqlite3  
+*.db
+
+__pycache__
