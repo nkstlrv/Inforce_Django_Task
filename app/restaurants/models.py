@@ -41,14 +41,14 @@ class Menu(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=True, default=None)
     day = models.PositiveSmallIntegerField(choices=WEEKDAY_CHOICES, default=0)
     
-    def get_weekday_display(self):
+    def get_day_display(self):
         """
         Method returns word-representation of weekdays instead of choices numbers
         """
         return dict(Menu.WEEKDAY_CHOICES)[self.day]
     
     def __str__(self):
-        return f"Menu of {self.restaurant.name} | {self.day}"
+        return f"Menu of {self.restaurant.name} | {self.get_day_display}"
 
 
 class Dish(models.Model):
