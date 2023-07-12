@@ -47,6 +47,7 @@ urlpatterns = [
     
     path('vote/delete/<int:pk>/', views.VoteDeleteAPIView.as_view(), name='vote_delete'),
     path('vote/update/<int:pk>/', views.VoteUpdateAPIView.as_view(), name='vote_update'),
+    path('menu/today-best/', views.TodayBestMenusAPIView.as_view(), name='best_menus'),
     
 
 ]

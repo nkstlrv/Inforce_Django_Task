@@ -6,6 +6,8 @@ from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from authentication.views import AuthBaseClass
+from rest_framework.views import APIView
+from django.db.models import Count
 
 
 class RestaurantListAPIView(AuthBaseClass, generics.ListAPIView):
@@ -151,19 +153,6 @@ class VoteListAPIView(generics.ListAPIView):
 class VoteCreateAPIView(AuthBaseClass, generics.CreateAPIView):
     queryset = Vote.objects.all()
     serializer_class = VoteSerializer
-    
-    # def create(self, request, *args, **kwargs):
-    #     menu_id = request.data.get('menu')
-    #     menu = Menu.objects.filter(id=menu_id).first()
-
-    #     if not menu:
-    #         return Response({"error": "No Menu with this ID"}, status=status.HTTP_400_BAD_REQUEST)
-
-    #     today = date.today()
-    #     if menu.day != today.weekday():
-    #         return Response({"error": "Voting is only allowed for today's Menu"}, status=status.HTTP_400_BAD_REQUEST)
-
-    #     return super().create(request, *args, **kwargs)
 
 
 class VoteDeleteAPIView(AuthBaseClass, generics.DestroyAPIView):
@@ -174,21 +163,15 @@ class VoteDeleteAPIView(AuthBaseClass, generics.DestroyAPIView):
 class VoteUpdateAPIView(AuthBaseClass, generics.UpdateAPIView):
     queryset = Vote.objects.all()
     serializer_class = VoteSerializer
-    
-    # def partial_update(self, request, *args, **kwargs):
-    #     kwargs['partial'] = False
-    #     return self.update(request, *args, **kwargs)
-    
-    # def update(self, request, *args, **kwargs):
-    #     instance = self.get_object()
-    #     menu = instance.menu
 
-    #     if not menu:
-    #         return Response({"error": "Invalid Menu entity"}, status=status.HTTP_400_BAD_REQUEST)
 
-    #     today = date.today()
-    #     if menu.day != today.weekday():
-    #         return Response({"error": "Voting is only allowed for today's Menu"}, status=status.HTTP_400_BAD_REQUEST)
-
-    #     return super().update(request, *args, **kwargs)
-
+class TodayBestMenusAPIView(APIView):
+    def get(self, request):
+        today = date.today()
+        
+        top_menus = Menu.objects.filter(day=today.weekday()).annotate(
+            vote_count=Count('vote')
+        ).exclude(vote_count__lt=1).order_by('-vote_count')[:3]
+        
+        serializer = MenuSerializer(top_menus, many=True)
+        return Response(serializer.data)
