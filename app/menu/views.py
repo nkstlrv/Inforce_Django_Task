@@ -1,10 +1,10 @@
 from datetime import date, timedelta
-from rest_framework import generics, status
+from rest_framework import generics
 from .models import Menu
 from .serializers import MenuSerializer
 from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAdminUser
 from authentication.views import AuthBaseClass
 from rest_framework.views import APIView
 from django.db.models import Count

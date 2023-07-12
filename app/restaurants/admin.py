@@ -14,5 +14,3 @@ class RestaurantAdmin(admin.ModelAdmin):
     list_filter = [
         'delivery',
     ]
-
-

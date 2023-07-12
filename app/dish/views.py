@@ -1,13 +1,9 @@
-from datetime import date, timedelta
-from rest_framework import generics, status
+from rest_framework import generics
 from .models import Dish
 from .serializers import DishSerializer
-from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from authentication.views import AuthBaseClass
-from rest_framework.views import APIView
-from django.db.models import Count
 
 
 class DishListAPIView(AuthBaseClass, generics.ListAPIView):

@@ -1,7 +1,6 @@
 from django.db import models
 
 
-
 class Dish(models.Model):
     """
     Model for specific dish to be related to menu model
@@ -10,6 +9,3 @@ class Dish(models.Model):
 
     def __str__(self):
         return self.name
-
-
-
