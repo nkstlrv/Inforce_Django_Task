@@ -1,7 +1,7 @@
 from datetime import date, timedelta
 from rest_framework import generics
-from .models import Restaurant, Menu, Dish
-from .serializers import RestaurantSerializer, MenuSerializer, DishSerializer
+from .models import Restaurant, Menu, Dish, Vote
+from .serializers import RestaurantSerializer, MenuSerializer, DishSerializer, VoteSerializer
 
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
@@ -82,7 +82,7 @@ class DishListAPIView(AuthBaseClass, generics.ListAPIView):
     serializer_class = DishSerializer
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
-    
+
 
 class RestaurantCreateAPIView(AuthBaseClass, generics.CreateAPIView):
     queryset = Restaurant.objects.all()
@@ -113,7 +113,6 @@ class MenuUpdateAPIView(AuthBaseClass, generics.UpdateAPIView):
     serializer_class = MenuSerializer
 
 
-
 class DishUpdateAPIView(generics.UpdateAPIView):
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
@@ -140,3 +139,25 @@ class DishDeleteAPIView(generics.DestroyAPIView):
     serializer_class = DishSerializer
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAdminUser]
+
+
+class VoteListAPIView(generics.ListAPIView):
+    queryset = Vote.objects.all()
+    serializer_class = VoteSerializer
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAdminUser]
+
+
+class VoteCreateAPIView(AuthBaseClass, generics.CreateAPIView):
+    queryset = Vote.objects.all()
+    serializer_class = VoteSerializer
+
+
+class VoteDeleteAPIView(AuthBaseClass, generics.DestroyAPIView):
+    queryset = Vote.objects.all()
+    serializer_class = VoteSerializer
+
+
+class VoteUpdateAPIView(AuthBaseClass, generics.UpdateAPIView):
+    queryset = Vote.objects.all()
+    serializer_class = VoteSerializer
