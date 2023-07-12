@@ -29,5 +29,14 @@ urlpatterns = [
     
     # PUT endpoint to update dish
     path('dish/update/<int:pk>/', views.DishUpdateAPIView.as_view(), name='dish_update'),
+    
+    # DELETE endpoint for restaurant
+    path('restaurant/delete/<int:pk>/', views.RestaurantDeleteAPIView.as_view(), name='restaurant_delete'),
+    
+    # DELETE endpoint for menu
+    path('menu/delete/<int:pk>/', views.MenuDeleteAPIView.as_view(), name='menu_delete'),
+    
+    # DELETE endpoint for dish
+    path('dish/delete/<int:pk>/', views.DishDeleteAPIView.as_view(), name='dish_delete'),
 
 ]

@@ -96,3 +96,18 @@ class MenuUpdateAPIView(generics.UpdateAPIView):
 class DishUpdateAPIView(generics.UpdateAPIView):
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
+    
+    
+class RestaurantDeleteAPIView(generics.DestroyAPIView):
+    queryset = Restaurant.objects.all()
+    serializer_class = RestaurantSerializer
+    
+
+class MenuDeleteAPIView(generics.DestroyAPIView):
+    queryset = Menu.objects.all()
+    serializer_class = MenuSerializer
+    
+
+class DishDeleteAPIView(generics.DestroyAPIView):
+    queryset = Dish.objects.all()
+    serializer_class = DishSerializer
