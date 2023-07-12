@@ -61,3 +61,17 @@ def test_not_enough_credentials_login_user():
     
     response = client.post("/api/login/", dict(password="TestPassword"))
     assert response.status_code == 400
+    
+    
+@pytest.mark.django_db
+def test_logout_user():
+    payload = dict(
+        username="TestUser",
+        password="TestPassword"
+    )
+
+    client.post("/api/register/", payload)
+    
+    response = client.get("/api/logout/")
+    assert response.status_code == 200
+  
