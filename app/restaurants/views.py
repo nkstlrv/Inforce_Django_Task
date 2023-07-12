@@ -12,9 +12,13 @@ class RestaurantListAPIView(generics.ListAPIView):
     def get_queryset(self):
         queryset = Restaurant.objects.all()
         restaurant_id = self.request.query_params.get('id')
+        delivery = self.request.query_params.get('delivery')
 
         if restaurant_id:
             queryset = queryset.filter(id=restaurant_id)
+            
+        if delivery:
+            queryset = queryset.filter(delivery=delivery)
 
         return queryset
 
