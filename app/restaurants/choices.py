@@ -7,7 +7,7 @@ class RestaurantCostChoices(models.IntegerChoices):
     """
     LOW = 1, ('Low')
     MID = 2, ('Mid')
-    HIGH = 2, ('High')
+    HIGH = 3, ('High')
     
     
 class DishDayChoices(models.IntegerChoices):
