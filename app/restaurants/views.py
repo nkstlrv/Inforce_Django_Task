@@ -1,3 +1,4 @@
+from datetime import date, timedelta
 from rest_framework import generics
 from .models import Restaurant, Menu, Dish
 from .serializers import RestaurantSerializer, MenuSerializer, DishSerializer
@@ -47,10 +48,22 @@ class MenuListAPIView(AuthBaseClass, generics.ListAPIView):
         day = self.request.query_params.get('day')
         restaurant_id = self.request.query_params.get('restaurant_id')
         _id = self.request.query_params.get('id')
-    
 
         if day:
-            queryset = queryset.filter(day=day)
+            try:
+                day = int(day)
+            except ValueError:
+                if day.lower() == 'today':
+                    today = date.today()
+                    day = today.weekday()
+                elif day.lower() == 'tomorrow':
+                    tomorrow = date.today() + timedelta(days=1)
+                    day = tomorrow.weekday()
+                else:
+                    day = None
+
+            if day is not None:
+                queryset = queryset.filter(day=day)
 
         if restaurant_id:
             queryset = queryset.filter(restaurant_id=restaurant_id)
