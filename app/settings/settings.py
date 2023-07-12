@@ -14,7 +14,6 @@ from pathlib import Path
 import os
 # importing load_dotenv method that will load env vars from .env file
 from dotenv import load_dotenv
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,20 +37,13 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-DJANGO_APPS = [
+INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'restaurants',
-]
-
-EXTERNAL_APPS = []
-
-INTERNAL_APPS = [
-    'restaurants',
 ]
 
 MIDDLEWARE = [
