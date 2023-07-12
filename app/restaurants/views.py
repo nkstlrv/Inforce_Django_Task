@@ -7,8 +7,16 @@ class RestaurantListAPIView(generics.ListAPIView):
     """
     List all Restaurants in DB
     """
-    queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
+    
+    def get_queryset(self):
+        queryset = Restaurant.objects.all()
+        restaurant_id = self.request.query_params.get('id')
+
+        if restaurant_id:
+            queryset = queryset.filter(id=restaurant_id)
+
+        return queryset
 
 
 class MenuListAPIView(generics.ListAPIView):
