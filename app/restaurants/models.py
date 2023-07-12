@@ -38,7 +38,6 @@ class Menu(models.Model):
         (7, 'Sunday'),
     )
 
-    name = models.CharField(max_length=50, default='Unknown Menu')
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=True, default=None)
     day = models.PositiveSmallIntegerField(choices=WEEKDAY_CHOICES, default=0)
 

@@ -14,3 +14,15 @@ class RestaurantSerializer(serializers.ModelSerializer):
             'phone_number',
             'delivery',
         )
+
+
+class MenuSerializer(serializers.ModelSerializer):
+    """
+    Serializer for Menu model
+    """
+    class Meta:
+        model = Menu
+        fields = (
+            'restaurant',
+            'day',
+        )
