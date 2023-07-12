@@ -1,7 +1,7 @@
 from datetime import date, timedelta
-from rest_framework import generics, status
-from .models import Restaurant,  Dish, Vote
-from .serializers import RestaurantSerializer, DishSerializer, VoteSerializer
+from rest_framework import generics
+from .models import Restaurant,  Vote
+from .serializers import RestaurantSerializer, VoteSerializer
 from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
@@ -30,16 +30,6 @@ class RestaurantListAPIView(AuthBaseClass, generics.ListAPIView):
         return queryset
 
 
-class DishListAPIView(AuthBaseClass, generics.ListAPIView):
-    """
-    List all Dishes in DB
-    """
-    queryset = Dish.objects.all()
-    serializer_class = DishSerializer
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAuthenticated]
-
-
 class RestaurantCreateAPIView(AuthBaseClass, generics.CreateAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
@@ -49,33 +39,14 @@ class RestaurantCreateAPIView(AuthBaseClass, generics.CreateAPIView):
                         phone_number=self.request.data.get('phone_number', None))
 
 
-class DishCreateAPIView(AuthBaseClass, generics.CreateAPIView):
-    queryset = Dish.objects.all()
-    serializer_class = DishSerializer
-
-
 class RestaurantUpdateAPIView(AuthBaseClass, generics.UpdateAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
 
 
-class DishUpdateAPIView(generics.UpdateAPIView):
-    queryset = Dish.objects.all()
-    serializer_class = DishSerializer
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAdminUser]
-
-
 class RestaurantDeleteAPIView(generics.DestroyAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAdminUser]
-
-
-class DishDeleteAPIView(generics.DestroyAPIView):
-    queryset = Dish.objects.all()
-    serializer_class = DishSerializer
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAdminUser]
 

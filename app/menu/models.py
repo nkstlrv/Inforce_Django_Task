@@ -20,6 +20,7 @@ class Menu(models.Model):
 
     restaurant = models.ForeignKey('restaurants.Restaurant', on_delete=models.CASCADE, null=True)
     day = models.PositiveSmallIntegerField(choices=WEEKDAY_CHOICES, default=0)
+    dishes = models.ManyToManyField('dish.Dish', blank=True)
 
     def __str__(self):
         return f"Menu of {self.restaurant.name} | {self.day}"

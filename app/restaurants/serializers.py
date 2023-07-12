@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Restaurant, Dish, Vote
+from .models import Restaurant, Vote
 
 
 class RestaurantSerializer(serializers.ModelSerializer):
@@ -10,18 +10,6 @@ class RestaurantSerializer(serializers.ModelSerializer):
         model = Restaurant
         fields = (
             '__all__'
-        )
-
-
-class DishSerializer(serializers.ModelSerializer):
-    """
-    Serializer for Dish model
-    """
-    class Meta:
-        model = Dish
-        fields = (
-            'id',
-            'name',
         )
 
 

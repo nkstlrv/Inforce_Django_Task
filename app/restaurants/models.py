@@ -24,16 +24,6 @@ class Restaurant(models.Model):
         return self.name
 
 
-class Dish(models.Model):
-    """
-    Model for specific dish to be related to menu model
-    """
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
-
-
 class Vote(models.Model):
     employee = models.OneToOneField(User, on_delete=models.CASCADE)
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
