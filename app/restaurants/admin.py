@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Restaurant, Dish, Menu
+from .models import Restaurant, Dish, Menu, Vote
 
 
 @admin.register(Restaurant)
@@ -9,7 +9,6 @@ class RestaurantAdmin(admin.ModelAdmin):
         'address',
         'delivery',
         'phone_number',
-        # 'menu',
     ]
 
     list_filter = [
@@ -19,7 +18,7 @@ class RestaurantAdmin(admin.ModelAdmin):
 
 @admin.register(Menu)
 class MenuAdmin(admin.ModelAdmin):
-    list_display = ['restaurant', 'get_day', 'get_dishes']
+    list_display = ['restaurant', 'get_day', 'get_dishes', 'votes']
 
     def get_day(self, obj):
         return dict(Menu.WEEKDAY_CHOICES)[obj.day]
@@ -36,3 +35,8 @@ class DishAdmin(admin.ModelAdmin):
         return ", ".join([menu.restaurant.name for menu in obj.menu_set.all()])
 
     get_menus.short_description = 'Menus'
+    
+    
+@admin.register(Vote)
+class VoteAdmin(admin.ModelAdmin):
+    list_display = ['menu', 'employee']
