@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'restaurants.apps.RestaurantsConfig',
     'authentication.apps.AuthenticationConfig',
     'menu.apps.MenuConfig',
+    'dish.apps.DishConfig',
     'rest_framework',
     'rest_framework_simplejwt',
 
