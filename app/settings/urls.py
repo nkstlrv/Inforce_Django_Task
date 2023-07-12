@@ -28,7 +28,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # endpoint of restaurants app APIs
-    path('api/', include("restaurants.urls")),
+    path('api/restaurant/', include("restaurants.urls")),
+    
+    # endpoint of menu app APIs
+    path('api/menu/', include("restaurants.urls")),
 
     # user registration/login/logout endpoints
     path('api/register/', UserRegistrationView.as_view(), name='user_registration'),
