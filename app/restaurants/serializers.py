@@ -9,10 +9,7 @@ class RestaurantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Restaurant
         fields = (
-            'name',
-            'address',
-            'phone_number',
-            'delivery',
+            '__all__'
         )
 
 
