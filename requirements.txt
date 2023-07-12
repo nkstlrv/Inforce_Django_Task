@@ -6,6 +6,7 @@ flake8==6.0.0
 flake8-builtins==2.1.0
 flake8-print==5.0.0
 mccabe==0.7.0
+psycopg2-binary==2.9.6
 pycodestyle==2.10.0
 pyflakes==3.0.1
 PyJWT==2.7.0
