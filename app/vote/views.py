@@ -12,6 +12,15 @@ class VoteListAPIView(generics.ListAPIView):
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAdminUser]
 
+    def get_queryset(self):
+        queryset = Vote.objects.all()
+        _id = self.request.query_params.get('id')
+
+        if _id:
+            queryset = queryset.filter(id=_id)
+
+        return queryset
+
 
 class VoteCreateAPIView(AuthBaseClass, generics.CreateAPIView):
     queryset = Vote.objects.all()

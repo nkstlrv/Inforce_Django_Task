@@ -51,7 +51,7 @@ class MenuListAPIView(AuthBaseClass, generics.ListAPIView):
             queryset = queryset.filter(restaurant_id=restaurant_id)
 
         if _id:
-            queryset = queryset.filter(id=id)
+            queryset = queryset.filter(id=_id)
 
         return queryset
 

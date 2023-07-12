@@ -14,6 +14,15 @@ class DishListAPIView(AuthBaseClass, generics.ListAPIView):
     serializer_class = DishSerializer
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        queryset = Dish.objects.all()
+        _id = self.request.query_params.get('id')
+
+        if _id:
+            queryset = queryset.filter(id=_id)
+
+        return queryset
 
 
 class DishCreateAPIView(AuthBaseClass, generics.CreateAPIView):
