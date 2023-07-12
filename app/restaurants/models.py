@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ValidationError
 
 
 class Restaurant(models.Model):
@@ -11,10 +12,20 @@ class Restaurant(models.Model):
     -phone number for booking or delivery
 
     """
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     address = models.CharField(max_length=255, null=True, default=None)
     delivery = models.BooleanField(default=False)
     phone_number = models.CharField(max_length=20, null=True, default=None)
+
+    def __str__(self):
+        return self.name
+
+
+class Dish(models.Model):
+    """
+    Model for specific dish to be related to menu model
+    """
+    name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name
@@ -28,35 +39,19 @@ class Menu(models.Model):
     - day when this menu is available
     """
     WEEKDAY_CHOICES = (
-        (0, 'Everyday'),
-        (1, 'Monday'),
-        (2, 'Tuesday'),
-        (3, 'Wednesday'),
-        (4, 'Thursday'),
-        (5, 'Friday'),
-        (6, 'Saturday'),
-        (7, 'Sunday'),
+        (0, 'Monday'),
+        (1, 'Tuesday'),
+        (2, 'Wednesday'),
+        (3, 'Thursday'),
+        (4, 'Friday'),
+        (5, 'Saturday'),
+        (6, 'Sunday'),
     )
 
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=True, default=None)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=True)
     day = models.PositiveSmallIntegerField(choices=WEEKDAY_CHOICES, default=0)
-
-    def get_day_display(self):
-        """
-        Method returns word-representation of weekdays instead of choices numbers
-        """
-        return dict(Menu.WEEKDAY_CHOICES)[self.day]
+    dishes = models.ManyToManyField(Dish, blank=True)
 
     def __str__(self):
-        return f"Menu of {self.restaurant.name}"
-
-
-class Dish(models.Model):
-    """
-    Model for specific dish to be related to menu model
-    """
-    name = models.CharField(max_length=255)
-    menu = models.ForeignKey(Menu, on_delete=models.CASCADE, null=True, default=None)
-
-    def __str__(self):
-        return self.name
+        return f"Menu of {self.restaurant.name} | {dict(Menu.WEEKDAY_CHOICES)[self.day]}"
+    

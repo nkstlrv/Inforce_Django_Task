@@ -19,26 +19,20 @@ class RestaurantAdmin(admin.ModelAdmin):
 
 @admin.register(Menu)
 class MenuAdmin(admin.ModelAdmin):
-    list_display = [
-        'restaurant',
-        'get_day_display',
-        'dishes',
-    ]
+    list_display = ['restaurant', 'get_day', 'get_dishes']
 
-    list_filter = [
-        'restaurant',
-    ]
+    def get_day(self, obj):
+        return dict(Menu.WEEKDAY_CHOICES)[obj.day]
 
-    def dishes(self, obj):
-        return " ,".join([str(i) for i in Dish.objects.filter(menu_id=obj.id)])
+    def get_dishes(self, obj):
+        return ", ".join([dish.name for dish in obj.dishes.all()])
 
 
 @admin.register(Dish)
 class DishAdmin(admin.ModelAdmin):
-    list_display = [
-        'name',
-        'get_menu',
-    ]
+    list_display = ['name', 'get_menus']
 
-    def get_menu(self, obj):
-        return obj.menu
+    def get_menus(self, obj):
+        return ", ".join([menu.restaurant.name for menu in obj.menu_set.all()])
+
+    get_menus.short_description = 'Menus'

@@ -28,16 +28,16 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # endpoint of restaurants app APIs
-    path('api/v1/', include("restaurants.urls")),
+    path('api/', include("restaurants.urls")),
 
     # user registration/login/logout endpoints
-    path('api/v1/register/', UserRegistrationView.as_view(), name='user_registration'),
-    path('api/v1/login/', TokenObtainPairView.as_view(), name='user_login'),
-    path('api/v1/logout/', LogoutView.as_view(), name='user_logout'),
+    path('api/register/', UserRegistrationView.as_view(), name='user_registration'),
+    path('api/login/', TokenObtainPairView.as_view(), name='user_login'),
+    path('api/logout/', LogoutView.as_view(), name='user_logout'),
 
     # JWT endpoints
-    path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/v1/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 
 
 ]

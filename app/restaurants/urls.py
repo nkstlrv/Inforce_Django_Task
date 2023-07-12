@@ -12,13 +12,31 @@ urlpatterns = [
     # GET endpoint for list of all dishes
     path('dish/list/', views.DishListAPIView.as_view(), name='dish_list'),
     
-    #POST endpoint to create new restaurant
+    # POST endpoint to create new restaurant
     path('restaurant/create/', views.RestaurantCreateAPIView.as_view(), name='restaurant_create'),
     
-    #POST endpoint to create new menu
+    # POST endpoint to create new menu
     path('menu/create/', views.MenuCreateAPIView.as_view(), name='menu_create'),
     
-    #POST endpoint to create new dish
+    # POST endpoint to create new dish
     path('dish/create/', views.DishCreateAPIView.as_view(), name='dish_create'),
+    
+    # PUT endpoint to update restaurant
+    path('restaurant/update/<int:pk>/', views.RestaurantUpdateAPIView.as_view(), name='restaurant_update'),
+    
+    # PUT endpoint to update menu
+    path('menu/update/<int:pk>/', views.MenuUpdateAPIView.as_view(), name='menu_update'),
+    
+    # PUT endpoint to update dish
+    path('dish/update/<int:pk>/', views.DishUpdateAPIView.as_view(), name='dish_update'),
+    
+    # DELETE endpoint for restaurant
+    path('restaurant/delete/<int:pk>/', views.RestaurantDeleteAPIView.as_view(), name='restaurant_delete'),
+    
+    # DELETE endpoint for menu
+    path('menu/delete/<int:pk>/', views.MenuDeleteAPIView.as_view(), name='menu_delete'),
+    
+    # DELETE endpoint for dish
+    path('dish/delete/<int:pk>/', views.DishDeleteAPIView.as_view(), name='dish_delete'),
 
 ]

@@ -1,9 +1,14 @@
+from datetime import date, timedelta
 from rest_framework import generics
 from .models import Restaurant, Menu, Dish
 from .serializers import RestaurantSerializer, MenuSerializer, DishSerializer
 
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from authentication.views import AuthBaseClass
 
-class RestaurantListAPIView(generics.ListAPIView):
+
+class RestaurantListAPIView(AuthBaseClass, generics.ListAPIView):
     """
     List all Restaurants in DB
     """
@@ -23,7 +28,7 @@ class RestaurantListAPIView(generics.ListAPIView):
         return queryset
 
 
-class MenuListAPIView(generics.ListAPIView):
+class MenuListAPIView(AuthBaseClass, generics.ListAPIView):
     """
     List all Menus in DB
 
@@ -36,6 +41,7 @@ class MenuListAPIView(generics.ListAPIView):
     To get all menus by providing specific day there is get_queryset() method
     """
     serializer_class = MenuSerializer
+    queryset = Menu.objects.all()
 
     def get_queryset(self):
         queryset = Menu.objects.all()
@@ -44,7 +50,20 @@ class MenuListAPIView(generics.ListAPIView):
         _id = self.request.query_params.get('id')
 
         if day:
-            queryset = queryset.filter(day=day)
+            try:
+                day = int(day)
+            except ValueError:
+                if day.lower() == 'today':
+                    today = date.today()
+                    day = today.weekday()
+                elif day.lower() == 'tomorrow':
+                    tomorrow = date.today() + timedelta(days=1)
+                    day = tomorrow.weekday()
+                else:
+                    day = None
+
+            if day is not None:
+                queryset = queryset.filter(day=day)
 
         if restaurant_id:
             queryset = queryset.filter(restaurant_id=restaurant_id)
@@ -55,15 +74,17 @@ class MenuListAPIView(generics.ListAPIView):
         return queryset
 
 
-class DishListAPIView(generics.ListAPIView):
+class DishListAPIView(AuthBaseClass, generics.ListAPIView):
     """
     List all Dishes in DB
     """
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated]
+    
 
-
-class RestaurantCreateAPIView(generics.CreateAPIView):
+class RestaurantCreateAPIView(AuthBaseClass, generics.CreateAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
 
@@ -72,20 +93,50 @@ class RestaurantCreateAPIView(generics.CreateAPIView):
                         phone_number=self.request.data.get('phone_number', None))
 
 
-class MenuCreateAPIView(generics.CreateAPIView):
+class MenuCreateAPIView(AuthBaseClass, generics.CreateAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
 
-    def perform_create(self, serializer):
-        restaurant_id = self.request.query_params.get('restaurant')
-        day = self.request.query_params.get('day', 0)
 
-        if restaurant_id:
-            serializer.save(restaurant_id=restaurant_id, day=day)
-        else:
-            serializer.save()
-
-
-class DishCreateAPIView(generics.CreateAPIView):
+class DishCreateAPIView(AuthBaseClass, generics.CreateAPIView):
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
+
+
+class RestaurantUpdateAPIView(AuthBaseClass, generics.UpdateAPIView):
+    queryset = Restaurant.objects.all()
+    serializer_class = RestaurantSerializer
+
+
+class MenuUpdateAPIView(AuthBaseClass, generics.UpdateAPIView):
+    queryset = Menu.objects.all()
+    serializer_class = MenuSerializer
+
+
+
+class DishUpdateAPIView(generics.UpdateAPIView):
+    queryset = Dish.objects.all()
+    serializer_class = DishSerializer
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAdminUser]
+
+
+class RestaurantDeleteAPIView(generics.DestroyAPIView):
+    queryset = Restaurant.objects.all()
+    serializer_class = RestaurantSerializer
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAdminUser]
+
+
+class MenuDeleteAPIView(generics.DestroyAPIView):
+    queryset = Menu.objects.all()
+    serializer_class = MenuSerializer
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAdminUser]
+
+
+class DishDeleteAPIView(generics.DestroyAPIView):
+    queryset = Dish.objects.all()
+    serializer_class = DishSerializer
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAdminUser]
