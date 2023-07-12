@@ -41,15 +41,15 @@ class MenuListAPIView(generics.ListAPIView):
         queryset = Menu.objects.all()
         day = self.request.query_params.get('day')
         restaurant_id = self.request.query_params.get('restaurant_id')
-        id = self.request.query_params.get('id')
+        _id = self.request.query_params.get('id')
 
         if day:
             queryset = queryset.filter(day=day)
-            
+
         if restaurant_id:
             queryset = queryset.filter(restaurant_id=restaurant_id)
-            
-        if id:
+
+        if _id:
             queryset = queryset.filter(id=id)
 
         return queryset
@@ -79,7 +79,7 @@ class MenuCreateAPIView(generics.CreateAPIView):
     def perform_create(self, serializer):
         restaurant_id = self.request.query_params.get('restaurant')
         day = self.request.query_params.get('day', 0)
-        
+
         if restaurant_id:
             serializer.save(restaurant_id=restaurant_id, day=day)
         else:
