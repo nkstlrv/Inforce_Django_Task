@@ -1,13 +1,9 @@
-from datetime import date, timedelta
 from rest_framework import generics
-from .models import Restaurant,  Vote
-from .serializers import RestaurantSerializer, VoteSerializer
-from rest_framework.response import Response
+from .models import Restaurant
+from .serializers import RestaurantSerializer
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAdminUser
 from authentication.views import AuthBaseClass
-from rest_framework.views import APIView
-from django.db.models import Count
 
 
 class RestaurantListAPIView(AuthBaseClass, generics.ListAPIView):
@@ -49,25 +45,3 @@ class RestaurantDeleteAPIView(generics.DestroyAPIView):
     serializer_class = RestaurantSerializer
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAdminUser]
-
-
-class VoteListAPIView(generics.ListAPIView):
-    queryset = Vote.objects.all()
-    serializer_class = VoteSerializer
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAdminUser]
-
-
-class VoteCreateAPIView(AuthBaseClass, generics.CreateAPIView):
-    queryset = Vote.objects.all()
-    serializer_class = VoteSerializer
-
-
-class VoteDeleteAPIView(AuthBaseClass, generics.DestroyAPIView):
-    queryset = Vote.objects.all()
-    serializer_class = VoteSerializer
-
-
-class VoteUpdateAPIView(AuthBaseClass, generics.UpdateAPIView):
-    queryset = Vote.objects.all()
-    serializer_class = VoteSerializer

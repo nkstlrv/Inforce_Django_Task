@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Restaurant, Vote
+from .models import Restaurant
 
 
 @admin.register(Restaurant)
@@ -16,6 +16,3 @@ class RestaurantAdmin(admin.ModelAdmin):
     ]
 
 
-@admin.register(Vote)
-class VoteAdmin(admin.ModelAdmin):
-    list_display = ['menu', 'employee']

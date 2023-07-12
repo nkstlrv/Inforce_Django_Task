@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'authentication.apps.AuthenticationConfig',
     'menu.apps.MenuConfig',
     'dish.apps.DishConfig',
+    'vote.apps.VoteConfig',
     'rest_framework',
     'rest_framework_simplejwt',
 

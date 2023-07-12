@@ -27,14 +27,11 @@ from rest_framework_simplejwt.views import (
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # endpoint of restaurants app APIs
+    # Apps API endpoint
     path('api/restaurant/', include("restaurants.urls")),
-    
-    # endpoint of menu app APIs
     path('api/menu/', include("menu.urls")),
-    
-    # endpoint of dish app APIs
     path('api/dish/', include("dish.urls")),
+    path('api/vote/', include("vote.urls")),
 
     # user registration/login/logout endpoints
     path('api/register/', UserRegistrationView.as_view(), name='user_registration'),
