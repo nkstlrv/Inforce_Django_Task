@@ -7,8 +7,8 @@ client = APIClient()
 def test_register_user():
 
     payload = dict(
-        username="TestUser",
-        password="TestPassword"
+        username="test_user",
+        password="test_password"
     )
 
     response = client.post("/api/register/", payload)
@@ -22,8 +22,8 @@ def test_register_user():
 @pytest.mark.django_db
 def test_login_user():
     payload = dict(
-        username="TestUser",
-        password="TestPassword"
+        username="test_user",
+        password="test_password"
     )
 
     client.post("/api/register/", payload)
@@ -34,16 +34,16 @@ def test_login_user():
 @pytest.mark.django_db
 def test_wrong_credentials_login_user():
     payload = dict(
-        username="TestUser",
-        password="TestPassword"
+        username="test_user",
+        password="test_password"
     )
 
     client.post("/api/register/", payload)
     
-    response = client.post("/api/login/", dict(username="TestUser", password="WrongPassword"))
+    response = client.post("/api/login/", dict(username="test_user", password="wrong_password"))
     assert response.status_code == 401
     
-    response = client.post("/api/login/", dict(username="WrongUser", password="TestPassword"))
+    response = client.post("/api/login/", dict(username="wrong_user", password="test_password"))
     assert response.status_code == 401
     
     
