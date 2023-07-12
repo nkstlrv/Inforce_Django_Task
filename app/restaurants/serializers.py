@@ -13,20 +13,6 @@ class RestaurantSerializer(serializers.ModelSerializer):
         )
 
 
-class MenuSerializer(serializers.ModelSerializer):
-    """
-    Serializer for Menu model
-    """
-    class Meta:
-        model = Menu
-        fields = (
-            'id',
-            'restaurant',
-            'day',
-            'dishes',
-        )
-
-
 class DishSerializer(serializers.ModelSerializer):
     """
     Serializer for Dish model
@@ -37,8 +23,8 @@ class DishSerializer(serializers.ModelSerializer):
             'id',
             'name',
         )
-        
-        
+
+
 class VoteSerializer(serializers.ModelSerializer):
     """
     Serializer for Dish model

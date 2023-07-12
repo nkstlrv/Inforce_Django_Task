@@ -1,9 +1,8 @@
 from datetime import date
-from django.utils import timezone
 from django.db import models
 from django.forms import ValidationError
 from django.contrib.auth.models import User
-
+from menu.models import Menu
 
 class Restaurant(models.Model):
     """
@@ -32,31 +31,6 @@ class Dish(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class Menu(models.Model):
-    """
-    Model of the menu
-    Fields:
-    - restaurant ID where this menu can be found
-    - day when this menu is available
-    """
-    WEEKDAY_CHOICES = (
-        (0, 'Monday'),
-        (1, 'Tuesday'),
-        (2, 'Wednesday'),
-        (3, 'Thursday'),
-        (4, 'Friday'),
-        (5, 'Saturday'),
-        (6, 'Sunday'),
-    )
-
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=True)
-    day = models.PositiveSmallIntegerField(choices=WEEKDAY_CHOICES, default=0)
-    dishes = models.ManyToManyField(Dish, blank=True)
-
-    def __str__(self):
-        return f"Menu of {self.restaurant.name} | {self.day}"
 
 
 class Vote(models.Model):
