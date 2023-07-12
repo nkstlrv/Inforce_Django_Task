@@ -38,5 +38,16 @@ urlpatterns = [
     
     # DELETE endpoint for dish
     path('dish/delete/<int:pk>/', views.DishDeleteAPIView.as_view(), name='dish_delete'),
+    
+    # GET endpoint for list of votes
+     path('vote/list/', views.VoteListAPIView.as_view(), name='vote_list'),
+     
+     # POST endpoint to vote
+    path('vote/create/', views.VoteCreateAPIView.as_view(), name='vote_create'),
+    
+    path('vote/delete/<int:pk>/', views.VoteDeleteAPIView.as_view(), name='vote_delete'),
+    path('vote/update/<int:pk>/', views.VoteUpdateAPIView.as_view(), name='vote_update'),
+    path('menu/today-best/', views.TodayBestMenusAPIView.as_view(), name='best_menus'),
+    
 
 ]
