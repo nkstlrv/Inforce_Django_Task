@@ -10,5 +10,4 @@ class UserRegistrationView(generics.CreateAPIView):
 
 
 class AuthBaseClass(APIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
