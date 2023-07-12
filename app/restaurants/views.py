@@ -20,11 +20,11 @@ class MenuListAPIView(generics.ListAPIView):
     Days of the week represents as integer
     0 - menu available every day
     1 - 7 --> Monday - Sunday
-    
+
     To get all menus by providing specific day there is get_queryset() method
     """
     serializer_class = MenuSerializer
-    
+
     def get_queryset(self):
         queryset = Menu.objects.all()
         day = self.request.query_params.get('day')
@@ -44,3 +44,8 @@ class DishListAPIView(generics.ListAPIView):
     """
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
+
+
+class RestaurantCreateAPIView(generics.CreateAPIView):
+    queryset = Restaurant.objects.all()
+    serializer_class = RestaurantSerializer
