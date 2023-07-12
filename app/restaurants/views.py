@@ -65,3 +65,9 @@ class RestaurantCreateAPIView(generics.CreateAPIView):
     def perform_create(self, serializer):
         serializer.save(address=self.request.data.get('address', None), 
                         phone_number=self.request.data.get('phone_number', None))
+        
+
+class MenuCreateAPIView(generics.CreateAPIView):
+    queryset = Menu.objects.all()
+    serializer_class = MenuSerializer
+
