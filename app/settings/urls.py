@@ -23,4 +23,7 @@ urlpatterns = [
     # endpoint of restaurants app APIs
     path('api/v1/', include("restaurants.urls")),
     
+    # authentication app
+    path('api/v1/auth/', include("authentication.urls"))
+    
 ]

@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'restaurants.apps.RestaurantsConfig',
     'rest_framework',
     'rest_framework.authtoken',
+    'authentication',
 ]
 
 MIDDLEWARE = [
