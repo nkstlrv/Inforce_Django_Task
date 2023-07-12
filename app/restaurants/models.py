@@ -15,7 +15,7 @@ class Restaurant(models.Model):
     address = models.CharField(max_length=255, null=True, default=None)
     delivery = models.BooleanField(default=False)
     phone_number = models.CharField(max_length=20, null=True, default=None)
-    
+
     def __str__(self):
         return self.name
 
@@ -41,13 +41,13 @@ class Menu(models.Model):
     name = models.CharField(max_length=50, default='Unknown Menu')
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=True, default=None)
     day = models.PositiveSmallIntegerField(choices=WEEKDAY_CHOICES, default=0)
-    
+
     def get_day_display(self):
         """
         Method returns word-representation of weekdays instead of choices numbers
         """
         return dict(Menu.WEEKDAY_CHOICES)[self.day]
-    
+
     def __str__(self):
         return f"Menu of {self.restaurant.name}"
 

@@ -4,7 +4,6 @@ from .models import Restaurant, Dish, Menu
 
 @admin.register(Restaurant)
 class RestaurantAdmin(admin.ModelAdmin):
-    
     list_display = [
         'name',
         'address',
@@ -12,15 +11,14 @@ class RestaurantAdmin(admin.ModelAdmin):
         'phone_number',
         # 'menu',
     ]
-    
+
     list_filter = [
         'delivery',
     ]
-    
+
 
 @admin.register(Menu)
 class MenuAdmin(admin.ModelAdmin):
-    
     list_display = [
         'restaurant',
         'get_day_display',
@@ -30,20 +28,17 @@ class MenuAdmin(admin.ModelAdmin):
     list_filter = [
         'restaurant',
     ]
-    
+
     def dishes(self, obj):
         return " ,".join([str(i) for i in Dish.objects.filter(menu_id=obj.id)])
-    
 
 
-@admin.register(Dish)   
+@admin.register(Dish)
 class DishAdmin(admin.ModelAdmin):
-    
     list_display = [
         'name',
         'get_menu',
     ]
-
 
     def get_menu(self, obj):
         return obj.menu
