@@ -72,6 +72,6 @@ def test_logout_user():
 
     client.post("/api/register/", payload)
     
-    response = client.get("/api/logout/")
+    response = client.post("/api/logout/")
     assert response.status_code == 200
   
