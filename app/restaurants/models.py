@@ -56,7 +56,7 @@ class Dish(models.Model):
     Model for specific dish to be related to menu model
     """
     name = models.CharField(max_length=255)
-    menu = models.ForeignKey(Menu, on_delete=models.CASCADE, null=True, default=None)
+    menus = models.ManyToManyField(Menu, related_name='dishes')
 
     def __str__(self):
         return self.name
