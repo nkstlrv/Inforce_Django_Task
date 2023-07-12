@@ -19,5 +19,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include("restaurants.urls")),
+    
+    # endpoint of restaurants app APIs
+    path('api/v1/', include("restaurants.urls")),
+    
 ]
