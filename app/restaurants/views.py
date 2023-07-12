@@ -1,8 +1,8 @@
 from datetime import date, timedelta
-from rest_framework import generics
+from rest_framework import generics, status
 from .models import Restaurant, Menu, Dish, Vote
 from .serializers import RestaurantSerializer, MenuSerializer, DishSerializer, VoteSerializer
-
+from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from authentication.views import AuthBaseClass
@@ -151,6 +151,19 @@ class VoteListAPIView(generics.ListAPIView):
 class VoteCreateAPIView(AuthBaseClass, generics.CreateAPIView):
     queryset = Vote.objects.all()
     serializer_class = VoteSerializer
+    
+    # def create(self, request, *args, **kwargs):
+    #     menu_id = request.data.get('menu')
+    #     menu = Menu.objects.filter(id=menu_id).first()
+
+    #     if not menu:
+    #         return Response({"error": "No Menu with this ID"}, status=status.HTTP_400_BAD_REQUEST)
+
+    #     today = date.today()
+    #     if menu.day != today.weekday():
+    #         return Response({"error": "Voting is only allowed for today's Menu"}, status=status.HTTP_400_BAD_REQUEST)
+
+    #     return super().create(request, *args, **kwargs)
 
 
 class VoteDeleteAPIView(AuthBaseClass, generics.DestroyAPIView):
@@ -161,3 +174,21 @@ class VoteDeleteAPIView(AuthBaseClass, generics.DestroyAPIView):
 class VoteUpdateAPIView(AuthBaseClass, generics.UpdateAPIView):
     queryset = Vote.objects.all()
     serializer_class = VoteSerializer
+    
+    # def partial_update(self, request, *args, **kwargs):
+    #     kwargs['partial'] = False
+    #     return self.update(request, *args, **kwargs)
+    
+    # def update(self, request, *args, **kwargs):
+    #     instance = self.get_object()
+    #     menu = instance.menu
+
+    #     if not menu:
+    #         return Response({"error": "Invalid Menu entity"}, status=status.HTTP_400_BAD_REQUEST)
+
+    #     today = date.today()
+    #     if menu.day != today.weekday():
+    #         return Response({"error": "Voting is only allowed for today's Menu"}, status=status.HTTP_400_BAD_REQUEST)
+
+    #     return super().update(request, *args, **kwargs)
+

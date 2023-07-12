@@ -1,3 +1,4 @@
+from datetime import date
 from django.utils import timezone
 from django.db import models
 from django.forms import ValidationError
@@ -56,7 +57,7 @@ class Menu(models.Model):
 
     def __str__(self):
         return f"Menu of {self.restaurant.name} | {self.day}"
-    
+
 
 class Vote(models.Model):
     employee = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -65,8 +66,16 @@ class Vote(models.Model):
     def __str__(self):
         return f"{self.employee.username} | {self.menu}"
 
+    def save(self, *args, **kwargs):
+        today = date.today()
+        if self.menu.day != today.weekday():
+            raise ValidationError("Voting is only allowed for today's Menu")
 
-  
+        super().save(*args, **kwargs)
 
-    
-    
+    def update(self, *args, **kwargs):
+        today = date.today()
+        if self.menu.day != today.weekday():
+            raise ValidationError("Voting is only allowed for today's Menu")
+
+        super().update(*args, **kwargs)
