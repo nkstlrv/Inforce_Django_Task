@@ -1,6 +1,6 @@
 from datetime import date, timedelta
 from rest_framework import generics, status
-from .models import Restaurant, Menu, Dish, Vote
+from .models import Restaurant,  Dish, Vote
 from .serializers import RestaurantSerializer, DishSerializer, VoteSerializer
 from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
