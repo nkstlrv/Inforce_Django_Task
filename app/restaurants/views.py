@@ -49,3 +49,7 @@ class DishListAPIView(generics.ListAPIView):
 class RestaurantCreateAPIView(generics.CreateAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
+    
+    def perform_create(self, serializer):
+        serializer.save(address=self.request.data.get('address', None), 
+                        phone_number=self.request.data.get('phone_number', None))
