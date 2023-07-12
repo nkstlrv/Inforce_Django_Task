@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'restaurants.apps.RestaurantsConfig',
+    'authentication.apps.AuthenticationConfig',
     'rest_framework',
     'rest_framework_simplejwt',
 
