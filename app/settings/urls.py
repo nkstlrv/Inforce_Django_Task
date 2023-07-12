@@ -19,5 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include("restaurants.urls")),
+    
+    # endpoint of restaurants app apis
+    path('api/v1/restaurants/', include("restaurants.urls")),
 ]

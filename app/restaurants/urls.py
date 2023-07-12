@@ -2,5 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.demo_view),
+    
+    # list of restaurants endpoint
+    path('list/restaurants/', views.RestaurantListAPIView.as_view(), name='restaurants_list'),
 ]
