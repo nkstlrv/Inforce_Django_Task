@@ -11,9 +11,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-
 import os
-from dotenv import load_dotenv # importing load_dotenv method that will load env vars from .env file
+# importing load_dotenv method that will load env vars from .env file
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,11 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-load_dotenv() # loading envs
+load_dotenv()  # loading envs
 
 # placing django secret key inside .env file and loading it with getenv method
 # note that .env file should be added into .gitignore file
-SECRET_KEY = os.getenv("DJANGO_KEY") 
+SECRET_KEY = os.getenv("DJANGO_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
