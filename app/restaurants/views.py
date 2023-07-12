@@ -1,9 +1,12 @@
 from rest_framework import generics
 from .models import Restaurant, Menu, Dish
 from .serializers import RestaurantSerializer, MenuSerializer, DishSerializer
+from authentication.views import AuthAPIView 
 
 
-class RestaurantListAPIView(generics.ListAPIView):
+
+
+class RestaurantListAPIView(generics.ListAPIView, AuthAPIView):
     """
     List all Restaurants in DB
     """
@@ -23,7 +26,7 @@ class RestaurantListAPIView(generics.ListAPIView):
         return queryset
 
 
-class MenuListAPIView(generics.ListAPIView):
+class MenuListAPIView(generics.ListAPIView, AuthAPIView):
     """
     List all Menus in DB
 
@@ -56,7 +59,7 @@ class MenuListAPIView(generics.ListAPIView):
         return queryset
 
 
-class DishListAPIView(generics.ListAPIView):
+class DishListAPIView(generics.ListAPIView, AuthAPIView):
     """
     List all Dishes in DB
     """
@@ -64,7 +67,7 @@ class DishListAPIView(generics.ListAPIView):
     serializer_class = DishSerializer
 
 
-class RestaurantCreateAPIView(generics.CreateAPIView):
+class RestaurantCreateAPIView(generics.CreateAPIView, AuthAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
 
@@ -73,41 +76,41 @@ class RestaurantCreateAPIView(generics.CreateAPIView):
                         phone_number=self.request.data.get('phone_number', None))
 
 
-class MenuCreateAPIView(generics.CreateAPIView):
+class MenuCreateAPIView(generics.CreateAPIView, AuthAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
 
 
-class DishCreateAPIView(generics.CreateAPIView):
+class DishCreateAPIView(generics.CreateAPIView, AuthAPIView):
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
-    
 
-class RestaurantUpdateAPIView(generics.UpdateAPIView):
+
+class RestaurantUpdateAPIView(generics.UpdateAPIView, AuthAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
-    
-    
-class MenuUpdateAPIView(generics.UpdateAPIView):
+
+
+class MenuUpdateAPIView(generics.UpdateAPIView, AuthAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
-    
-    
-class DishUpdateAPIView(generics.UpdateAPIView):
+
+
+class DishUpdateAPIView(generics.UpdateAPIView, AuthAPIView):
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
-    
-    
-class RestaurantDeleteAPIView(generics.DestroyAPIView):
+
+
+class RestaurantDeleteAPIView(generics.DestroyAPIView, AuthAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
-    
 
-class MenuDeleteAPIView(generics.DestroyAPIView):
+
+class MenuDeleteAPIView(generics.DestroyAPIView, AuthAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
-    
 
-class DishDeleteAPIView(generics.DestroyAPIView):
+
+class DishDeleteAPIView(generics.DestroyAPIView, AuthAPIView):
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
