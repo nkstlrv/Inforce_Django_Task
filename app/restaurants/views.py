@@ -9,12 +9,14 @@ class RestaurantListAPIView(generics.ListAPIView):
     """
     Returns all Restaurants
     Also can be filtered by query parameters:
-    - id, 
+    - id,
     - delivery option
     """
     serializer_class = RestaurantSerializer
     permission_classes = [IsAuthenticated]
-    authentication_classes = [SessionAuthentication, BasicAuthentication] # Remove attribute to run pytest
+
+    # Remove attribute to run pytest
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
 
     def get_queryset(self):
         queryset = Restaurant.objects.all()
@@ -37,7 +39,9 @@ class RestaurantCreateAPIView(generics.CreateAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
     permission_classes = [IsAuthenticated]
-    authentication_classes = [SessionAuthentication, BasicAuthentication] # Remove attribute to run pytest
+
+    # Remove attribute to run pytest
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
 
     def perform_create(self, serializer):
         serializer.save(address=self.request.data.get('address', None),
@@ -51,7 +55,9 @@ class RestaurantUpdateAPIView(generics.UpdateAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
     permission_classes = [IsAuthenticated]
-    authentication_classes = [SessionAuthentication, BasicAuthentication] # Remove attribute to run pytest
+
+    # Remove attribute to run pytest
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
 
 
 class RestaurantDeleteAPIView(generics.DestroyAPIView):
@@ -61,4 +67,6 @@ class RestaurantDeleteAPIView(generics.DestroyAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
     permission_classes = [IsAuthenticated]
-    authentication_classes = [SessionAuthentication, BasicAuthentication] # Remove attribute to run pytest
+
+    # Remove attribute to run pytest
+    authentication_classes = [SessionAuthentication, BasicAuthentication]

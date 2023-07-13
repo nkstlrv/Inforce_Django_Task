@@ -16,7 +16,7 @@ class Vote(models.Model):
 
     def __str__(self):
         return f"{self.employee.username} | {self.menu}"
-    
+
     # Save and Update methods are overridden so today's only menu validation works
     def save(self, *args, **kwargs):
         today = date.today()

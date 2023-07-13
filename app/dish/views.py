@@ -4,6 +4,7 @@ from .serializers import DishSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
+
 class DishListAPIView(generics.ListAPIView):
     """
     Returns all dishes, used by GET endpoint
@@ -12,7 +13,9 @@ class DishListAPIView(generics.ListAPIView):
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
     permission_classes = [IsAuthenticated]
-    authentication_classes = [SessionAuthentication, BasicAuthentication] # Remove attribute to run pytest
+
+    # Remove attribute to run pytest
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
 
     def get_queryset(self):
         queryset = Dish.objects.all()
@@ -31,7 +34,9 @@ class DishCreateAPIView(generics.CreateAPIView):
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
     permission_classes = [IsAuthenticated]
-    authentication_classes = [SessionAuthentication, BasicAuthentication] # Remove attribute to run pytest
+
+    # Remove attribute to run pytest
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
 
 
 class DishUpdateAPIView(generics.UpdateAPIView):
@@ -41,7 +46,9 @@ class DishUpdateAPIView(generics.UpdateAPIView):
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
     permission_classes = [IsAuthenticated]
-    authentication_classes = [SessionAuthentication, BasicAuthentication] # Remove attribute to run pytest
+
+    # Remove attribute to run pytest
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
 
 
 class DishDeleteAPIView(generics.DestroyAPIView):
@@ -51,4 +58,6 @@ class DishDeleteAPIView(generics.DestroyAPIView):
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
     permission_classes = [IsAuthenticated]
-    authentication_classes = [SessionAuthentication, BasicAuthentication] # Remove attribute to run pytest
+
+    # Remove attribute to run pytest
+    authentication_classes = [SessionAuthentication, BasicAuthentication]

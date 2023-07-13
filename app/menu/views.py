@@ -13,13 +13,15 @@ class MenuListAPIView(generics.ListAPIView):
     """
     Returns all Menus
     Also can be filtered by query parameters:
-    - id, 
+    - id,
     - day (number, today/tomorrow)
     - restaurant ID and ID of the Menu
     """
     serializer_class = MenuSerializer
     queryset = Menu.objects.all()
     permission_classes = [IsAuthenticated]
+
+    # Remove attribute to run pytest
     authentication_classes = [SessionAuthentication, BasicAuthentication]
 
     def get_queryset(self):
@@ -60,7 +62,9 @@ class MenuCreateAPIView(generics.CreateAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
     permission_classes = [IsAuthenticated]
-    authentication_classes = [SessionAuthentication, BasicAuthentication] # Remove attribute to run pytest
+
+    # Remove attribute to run pytest
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
 
 
 class MenuUpdateAPIView(generics.UpdateAPIView):
@@ -70,7 +74,9 @@ class MenuUpdateAPIView(generics.UpdateAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
     permission_classes = [IsAuthenticated]
-    authentication_classes = [SessionAuthentication, BasicAuthentication] # Remove attribute to run pytest
+
+    # Remove attribute to run pytest
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
 
 
 class MenuDeleteAPIView(generics.DestroyAPIView):
@@ -80,7 +86,9 @@ class MenuDeleteAPIView(generics.DestroyAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
     permission_classes = [IsAuthenticated]
-    authentication_classes = [SessionAuthentication, BasicAuthentication] # Remove attribute to run pytest
+
+    # Remove attribute to run pytest
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
 
 
 class TodayBestMenusAPIView(APIView):
@@ -88,7 +96,9 @@ class TodayBestMenusAPIView(APIView):
     Returns best Menu (Menus) for today according to employees votes
     """
     permission_classes = [IsAuthenticated]
-    authentication_classes = [SessionAuthentication, BasicAuthentication] # Remove attribute to run pytest
+
+    # Remove attribute to run pytest
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
 
     def get(self, request):
         today = date.today()
