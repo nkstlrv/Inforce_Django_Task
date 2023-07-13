@@ -4,6 +4,9 @@ from .models import Menu
 
 @admin.register(Menu)
 class MenuAdmin(admin.ModelAdmin):
+    """
+    Needed for better UI model representation on admin panel
+    """
     list_display = ['restaurant', 'get_day', 'get_dishes', 'get_votes_count']
 
     def get_day(self, obj):

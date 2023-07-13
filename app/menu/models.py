@@ -3,10 +3,9 @@ from django.db import models
 
 class Menu(models.Model):
     """
-    Model of the menu
-    Fields:
-    - restaurant ID where this menu can be found
-    - day when this menu is available
+    Model of the Menu
+    has relations to Restaurant and Dishes model
+    field day alow us to understand on what week day this menu is available
     """
     WEEKDAY_CHOICES = (
         (0, 'Monday'),
