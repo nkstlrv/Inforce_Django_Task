@@ -3,8 +3,6 @@ from rest_framework import generics
 from .models import Menu
 from .serializers import MenuSerializer
 from rest_framework.response import Response
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from authentication.views import AuthBaseClass
 from rest_framework.views import APIView
 from django.db.models import Count
 from rest_framework.permissions import IsAuthenticated
@@ -77,6 +75,7 @@ class MenuDeleteAPIView(generics.DestroyAPIView):
 
 class TodayBestMenusAPIView(APIView):
     permission_classes = [IsAuthenticated]
+
     def get(self, request):
         today = date.today()
 
