@@ -2,6 +2,11 @@
 
 Django REST API application that helps employees make decisions of the restaurant to have lunch today.
 
+### make sure to install all necessary packaged and libraries:
+```bash
+  pip install -r requirements.txt
+```
+
 ## DataBase setup
 
 Inside `settings.py` file there is the option of two DB configurations:
@@ -20,6 +25,7 @@ The easiest way is to install Docker on your machine and run following commands 
 
 
 ## Project shortcuts
+
 
 Run server
 
