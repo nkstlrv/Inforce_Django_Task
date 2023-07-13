@@ -1,6 +1,6 @@
 # Inforce Python Task 
 
-An Django REST API app that helps employees making decisions of the restaurants to have lunch.
+Django REST API application that helps employees make decisions of the restaurant to have lunch today.
 
 ## DataBase setup
 
@@ -10,27 +10,7 @@ Inside `settings.py` file there is the option of two DB configurations:
     2. Postgres DB
 
 If you have chosen Postgres you need to configure Postgres Server.
-The easiest way is to install Docker on your machine and run followng commands inside `app/` folder:
-
-```bash
-  docker-compose up -d
-  cd ..
-  make migrate
-```
-
-# Inforce Python Task 
-
-An Django REST API app that helps employees making decisions of the restaurants to have lunch.
-
-## DataBase setup
-
-Inside `settings.py` file there is the option of two DB configurations:
-
-    1. SQLite DB 
-    2. Postgres DB
-
-If you have chosen Postgres you need to configure Postgres Server.
-The easiest way is to install Docker on your machine and run followng commands inside `app/` folder:
+The easiest way is to install Docker on your machine and run following commands inside `app/` folder:
 
 ```bash
   docker-compose up -d
@@ -71,7 +51,7 @@ To run tests, proceed the following instruction:
 ```code
   authentication_classes = [SessionAuthentication, BasicAuthentication]
 ```
-#### 2. Go to app/ filder
+#### 2. Go to app/ filter
 ```bash
   cd app/
   ls
@@ -79,7 +59,7 @@ To run tests, proceed the following instruction:
 ```
 #### 3. Run tests
 ```bash
-  pytests
+  pytest
 ```
 
 
@@ -127,7 +107,7 @@ GET will not be supported from Django v5.0
 | :-------- | :------- | :------------------------- |
 | `token` | `string` | **Required** |
 
-#### JWT refres token:
+#### JWT refresh token:
 
 ```http
   GET /api/token/refresh/
