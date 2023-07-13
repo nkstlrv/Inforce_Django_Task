@@ -3,14 +3,12 @@ from rest_framework import generics
 from .models import Menu
 from .serializers import MenuSerializer
 from rest_framework.response import Response
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_framework.permissions import IsAdminUser
-from authentication.views import AuthBaseClass
 from rest_framework.views import APIView
 from django.db.models import Count
+from rest_framework.permissions import IsAuthenticated
 
 
-class MenuListAPIView(AuthBaseClass, generics.ListAPIView):
+class MenuListAPIView(generics.ListAPIView):
     """
     List all Menus in DB
 
@@ -24,6 +22,7 @@ class MenuListAPIView(AuthBaseClass, generics.ListAPIView):
     """
     serializer_class = MenuSerializer
     queryset = Menu.objects.all()
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         queryset = Menu.objects.all()
@@ -56,24 +55,27 @@ class MenuListAPIView(AuthBaseClass, generics.ListAPIView):
         return queryset
 
 
-class MenuCreateAPIView(AuthBaseClass, generics.CreateAPIView):
+class MenuCreateAPIView(generics.CreateAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
+    permission_classes = [IsAuthenticated]
 
 
-class MenuUpdateAPIView(AuthBaseClass, generics.UpdateAPIView):
+class MenuUpdateAPIView(generics.UpdateAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class MenuDeleteAPIView(generics.DestroyAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAuthenticated]
 
 
 class TodayBestMenusAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
         today = date.today()
 

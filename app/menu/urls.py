@@ -18,5 +18,4 @@ urlpatterns = [
     # GET endpoint 
     path('today-best/', views.TodayBestMenusAPIView.as_view(), name='best_menus'),
 
-
 ]

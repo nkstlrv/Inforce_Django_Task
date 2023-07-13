@@ -1,16 +1,15 @@
 from rest_framework import generics
 from .models import Restaurant
 from .serializers import RestaurantSerializer
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_framework.permissions import IsAdminUser
-from authentication.views import AuthBaseClass
+from rest_framework.permissions import IsAuthenticated
 
 
-class RestaurantListAPIView(AuthBaseClass, generics.ListAPIView):
+class RestaurantListAPIView(generics.ListAPIView):
     """
     List all Restaurants in DB
     """
     serializer_class = RestaurantSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         queryset = Restaurant.objects.all()
@@ -26,22 +25,23 @@ class RestaurantListAPIView(AuthBaseClass, generics.ListAPIView):
         return queryset
 
 
-class RestaurantCreateAPIView(AuthBaseClass, generics.CreateAPIView):
+class RestaurantCreateAPIView(generics.CreateAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
+    permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(address=self.request.data.get('address', None),
                         phone_number=self.request.data.get('phone_number', None))
 
 
-class RestaurantUpdateAPIView(AuthBaseClass, generics.UpdateAPIView):
+class RestaurantUpdateAPIView(generics.UpdateAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class RestaurantDeleteAPIView(generics.DestroyAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAuthenticated]

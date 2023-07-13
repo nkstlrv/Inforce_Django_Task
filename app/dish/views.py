@@ -1,18 +1,15 @@
 from rest_framework import generics
 from .models import Dish
 from .serializers import DishSerializer
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from authentication.views import AuthBaseClass
+from rest_framework.permissions import IsAuthenticated
 
 
-class DishListAPIView(AuthBaseClass, generics.ListAPIView):
+class DishListAPIView(generics.ListAPIView):
     """
     List all Dishes in DB
     """
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
@@ -25,20 +22,19 @@ class DishListAPIView(AuthBaseClass, generics.ListAPIView):
         return queryset
 
 
-class DishCreateAPIView(AuthBaseClass, generics.CreateAPIView):
+class DishCreateAPIView(generics.CreateAPIView):
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class DishUpdateAPIView(generics.UpdateAPIView):
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAuthenticated]
 
 
 class DishDeleteAPIView(generics.DestroyAPIView):
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAuthenticated]
