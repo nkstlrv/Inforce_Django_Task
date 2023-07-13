@@ -281,3 +281,19 @@ GET will not be supported from Django v5.0
 ```http
   DELETE /api/vote/delete/<int:pk>/
 ```
+
+
+### Admin GIU panel
+
+#### 1. Create superuser
+```code
+  cd app/
+  python3 manage.py createsuperuser
+```
+#### 2. Provide username and password and press `yes`
+
+#### 3. Go buy this url and provide your credentials
+
+```http
+  GET /admin/
+```
