@@ -11,15 +11,11 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 
 class MenuListAPIView(generics.ListAPIView):
     """
-    List all Menus in DB
-
-    Restaurant represents as ID
-
-    Days of the week represents as integer
-    0 - menu available every day
-    1 - 7 --> Monday - Sunday
-
-    To get all menus by providing specific day there is get_queryset() method
+    Returns all Menus
+    Also can be filtered by query parameters:
+    - id, 
+    - day (number, today/tomorrow)
+    - restaurant ID and ID of the Menu
     """
     serializer_class = MenuSerializer
     queryset = Menu.objects.all()
@@ -58,29 +54,41 @@ class MenuListAPIView(generics.ListAPIView):
 
 
 class MenuCreateAPIView(generics.CreateAPIView):
+    """
+    Creation method view to be used by POST API endpoint
+    """
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
     permission_classes = [IsAuthenticated]
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [SessionAuthentication, BasicAuthentication] # Remove attribute to run pytest
 
 
 class MenuUpdateAPIView(generics.UpdateAPIView):
+    """
+    Instance editing method view to be used by PUT/PATCH API endpoint
+    """
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
     permission_classes = [IsAuthenticated]
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [SessionAuthentication, BasicAuthentication] # Remove attribute to run pytest
 
 
 class MenuDeleteAPIView(generics.DestroyAPIView):
+    """
+    Deletion method view to be used by DELETE API endpoint
+    """
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
     permission_classes = [IsAuthenticated]
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [SessionAuthentication, BasicAuthentication] # Remove attribute to run pytest
 
 
 class TodayBestMenusAPIView(APIView):
+    """
+    Returns best Menu (Menus) for today according to employees votes
+    """
     permission_classes = [IsAuthenticated]
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [SessionAuthentication, BasicAuthentication] # Remove attribute to run pytest
 
     def get(self, request):
         today = date.today()

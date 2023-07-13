@@ -6,12 +6,13 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 
 class DishListAPIView(generics.ListAPIView):
     """
-    List all Dishes in DB
+    Returns all dishes, used by GET endpoint
+    Also can be filtered by id
     """
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
     permission_classes = [IsAuthenticated]
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [SessionAuthentication, BasicAuthentication] # Remove attribute to run pytest
 
     def get_queryset(self):
         queryset = Dish.objects.all()
@@ -24,21 +25,30 @@ class DishListAPIView(generics.ListAPIView):
 
 
 class DishCreateAPIView(generics.CreateAPIView):
+    """
+    Creation method view to be used by POST API endpoint
+    """
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
     permission_classes = [IsAuthenticated]
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [SessionAuthentication, BasicAuthentication] # Remove attribute to run pytest
 
 
 class DishUpdateAPIView(generics.UpdateAPIView):
+    """
+    Instance editing method view to be used by PUT/PATCH API endpoint
+    """
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
     permission_classes = [IsAuthenticated]
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [SessionAuthentication, BasicAuthentication] # Remove attribute to run pytest
 
 
 class DishDeleteAPIView(generics.DestroyAPIView):
+    """
+    Deletion method view to be used by DELETE API endpoint
+    """
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
     permission_classes = [IsAuthenticated]
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [SessionAuthentication, BasicAuthentication] # Remove attribute to run pytest

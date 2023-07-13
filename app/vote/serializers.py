@@ -4,7 +4,7 @@ from .models import Vote
 
 class VoteSerializer(serializers.ModelSerializer):
     """
-    Serializer for Dish model
+    Serializer for Vote model
     """
     class Meta:
         model = Vote

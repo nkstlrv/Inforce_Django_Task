@@ -3,7 +3,7 @@ from django.db import models
 
 class Restaurant(models.Model):
     """
-    Model of the restaurant
+    Model of the Restaurant instances
     Fields:
     - name of the restaurant
     - address of the restaurant
