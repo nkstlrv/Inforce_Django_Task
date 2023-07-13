@@ -2,6 +2,7 @@ from rest_framework import generics
 from .models import Restaurant
 from .serializers import RestaurantSerializer
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
 
 class RestaurantListAPIView(generics.ListAPIView):
@@ -10,6 +11,7 @@ class RestaurantListAPIView(generics.ListAPIView):
     """
     serializer_class = RestaurantSerializer
     permission_classes = [IsAuthenticated]
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
 
     def get_queryset(self):
         queryset = Restaurant.objects.all()
@@ -29,6 +31,7 @@ class RestaurantCreateAPIView(generics.CreateAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
     permission_classes = [IsAuthenticated]
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
 
     def perform_create(self, serializer):
         serializer.save(address=self.request.data.get('address', None),
@@ -39,9 +42,11 @@ class RestaurantUpdateAPIView(generics.UpdateAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
     permission_classes = [IsAuthenticated]
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
 
 
 class RestaurantDeleteAPIView(generics.DestroyAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
     permission_classes = [IsAuthenticated]
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
